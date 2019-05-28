@@ -107,7 +107,7 @@ Försök nu använda multi-stage-build för att ytterligare optimera vår server
 
 ## Använd färdiga images
 Det vanligaste sättet att bygga images är inte att bygga egna från början som vi har gjort hittils. 
-Istället använder man oftast färdiga base-images från t.ex. (Docker Hub)[https://hub.docker.com/]. (Faktum är att det är precis det vi har gjort med både Ubuntu och Alpine).
+Istället använder man oftast färdiga base-images från t.ex. [Docker Hub](https://hub.docker.com/). (Faktum är att det är precis det vi har gjort med både Ubuntu och Alpine).
 
 Försök hitta en lämplig base-image som vi kan använda istället för att behöva installera nodejs själva. 
 Använd denna och försök se om det går att optimera vår image ytterligare?
