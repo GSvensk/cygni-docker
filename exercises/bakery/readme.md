@@ -23,12 +23,12 @@ This demo is aimed primarily at developers wanting to learn more about the inter
 
 ## LAB 1
 
-Välkommen till Wagtail - ett CMS-system för Python. Dessa labbar kommer utgå från ett demo av Wagtail, *bakerydemo*, som hanterar innehåll för ett bageri.
+Välkommen till Wagtail - ett CMS-system för Python. Dessa labbar kommer utgå från ett demoprojekt av Wagtail, *bakerydemo*, som hanterar innehåll för ett bageri.
 
 - Ledning för de vanligaste docker-kommandona finns här: [Docker cheat sheet](https://www.docker.com/sites/default/files/d8/2019-09/docker-cheat-sheet.pdf).
-- Det finns även extra ledning/svar i filen [guidance.md](guidance.md) om du känner att du kör fast eller att någon övning blir för svår.
+- Det finns även extra ledning/svar i filen [guidance.md](guidance.md) om ni kör fast eller känner att någon övning blir för svår. Försök själva först!
 
-**Dra ner senaste versionen av detta repo innan du börjar**
+**Dra ner senaste versionen av detta repot innan du börjar**
 
 ### Övningar
 
@@ -36,20 +36,18 @@ Välkommen till Wagtail - ett CMS-system för Python. Dessa labbar kommer utgå 
 
 2. Bygg en **image** av Wagtail, med lämplig tag (-t). Det finns redan en färdiggjord Dockerfile som specificer hur imagen ska byggas, så det behöver ni inte tänka på.
 
-   - Hint: "." markerar det directory du står i.
-
 3. Vilka images finns nu på din dator?
-4. Vilken image utgick Wagtail från tror du?
+4. Vilken image utgick Wagtail ifrån tror du?
 5. Testa starta en **container** från din image med:
 
    `docker run {yourimage}`
 
-6. Vilden adress lyssnar Wagtail på och kan du nå Wagtail på den adressen? Varför / varför inte?. 
+6. Vilden adress lyssnar Wagtail på och kan du nå Wagtail på den adressen? Varför / varför inte?.
 7. Stoppa containern (control C) alt. docker container stop. Starta en ny Wagtail-container med:
 
-   - Lämplig _port forwarding_ 
+   - Lämplig _port forwarding_
    - environment-variablen (-e) \*DJANGO_SECRET_KEY='test'.
-   - I _detached_ state (-d). Detta betyder att docker run inte "attachar" t.ex. STDOUT till terminalen.
+   - I _detached_ state (-d). Detta betyder att docker run inte "attachar" exempelvis STDOUT och STDIN till terminalen.
 
 8. Kolla nu upp ID för containern du precis startade.
 9. Kan du också hitta containern du stoppade?
@@ -62,14 +60,15 @@ Välkommen till Wagtail - ett CMS-system för Python. Dessa labbar kommer utgå 
 
     `/venv/bin/python manage.py createsuperuser`
 
-    **inuti** containern. Fördelaktligen startar du en till shell-session där du gör detta. STÄNG INTE SHELL-SESSIONEN NÄR DU ÄR FÄRDIG.
+    **inuti** containern. Fördelaktligen startar du en till shell-session där du gör detta. **STÄNG INTE SHELL-SESSIONEN I CONTAINERN, DU BEHÖVER DEN SNART IGEN**
 
     - Hint: Du står i _/code_ när du kommer in i containern. Vad finns där?
+    - Note: Om du går till '/' i containern, vad finns där? [Linux filsystem](https://www.linux.com/training-tutorials/linux-filesystem-explained/)?
 
-12. Testa nu att logga in med användaren du startade. Fungerar det? Om inte, kan du lista ut vad som blir fel?
+12. Testa nu att logga in med användaren du skapade. Fungerar det? Om inte, kan du lista ut vad som blir fel?
 
     - Hint: Wagtail använder en sqlite databas.
-    - Hint: Går det att få ut containerns log?
+    - Hint: loggar brukar vara bra...
 
 13. Fixa felet för att kunna logga in.
 
@@ -79,12 +78,18 @@ Välkommen till Wagtail - ett CMS-system för Python. Dessa labbar kommer utgå 
 
 14. Testa nu att logga in med din användare
 
-15. Har ni ännu mer tid testa att:
+15. Hur stoppar man containern?
 
-    - På valfritt sätt mounta containerns /code/db.sqllite (-v)
+16. Testa nu att bygga igen. Hur gör du för att ta bort "dangling images" och stoppade containers?
+
+17. Läs på om [filter](https://docs.docker.com/engine/reference/commandline/images/). Hur kan du använda det för att ta bort *alla* images med namnet python\*
+
+18. Har ni ännu mer tid testa att:
+
+    - På valfritt sätt mounta containerns databas (-v)
     - Hjälp dina kollegor
 
-16. Har du ännu mer tid över (värdefull läsning):
+19. Har du ännu mer tid över (värdefull läsning):
     - Det går att ha limits på minne en container kan ta, läs om det [här](https://phoenixnap.com/kb/docker-memory-and-cpu-limit). Det är användbart om en container skulle "skena".
     - Rotera loggar kan du läsa om [här](https://medium.com/@Quigley_Ja/rotating-docker-logs-keeping-your-overlay-folder-small-40cfa2155412). Värdefullt när man kör i produktion att rotera loggar.
     - Läs på om ulimit, dvs. antalet [file descriptors](https://stackoverflow.com/questions/5256599/what-are-file-descriptors-explained-in-simple-terms) och hur man kan limitera dessa [i docker](https://stackoverflow.com/questions/24318543/how-to-set-ulimit-file-descriptor-on-docker-container-the-image-tag-is-phusion)
@@ -114,11 +119,11 @@ Välkommen till Wagtail - ett CMS-system för Python. Dessa labbar kommer utgå 
 5. Se nu till att databasen startar före appen. [Läs depends on i docs](https://docs.docker.com/compose/compose-file/)
 
    - Hint: Använd docker-entrypoint-compose.sh i Dockerfile istället. Varför?
-   - Hint: Funkar det inte, testa att köra `docker compose build app`
+   - Hint: Funkar det inte, testa att köra `docker-compose build app`
 
 6. Kör nu:
-   
-   1. `docker-compose up --build -d` 
+
+   1. `docker-compose up --build -d`
    2. `docker-compose run app /venv/bin/python manage.py load_initial_data` för att ladda startdata.
    3. `docker-compose up` för att köra igång både databasen och Wagtail.
 
@@ -130,4 +135,6 @@ Välkommen till Wagtail - ett CMS-system för Python. Dessa labbar kommer utgå 
 
 8. Skapa nu ett separat bride-nätverk mellan appen och databasen. [Ett exempel finns här](https://linuxhint.com/docker_compose_bridge_networking/)
 
-9. Kolla på LAB1 punkt 16.
+9. Kolla på LAB1 punkt 19.
+
+10. Läs på om kubernetes

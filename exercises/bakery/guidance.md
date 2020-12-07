@@ -13,7 +13,7 @@ Känner ni att det blir för svårt, så kolla då här för att få ledning.
 8. `docker container ls eller docker ps` (för att lista conteiners)
 9. `docker container ls --all` (för att lista även stoppade containers)
 10. None
-11. `docker exec -it {containerID} /bin/bash` Kör sedan kommandot.
+11. `docker exec -it {containerID} /bin/bash` Kör sedan kommandot. Detta ger din en interaktiv session med /bin/bash (dvs. terminalen) inuti containern.
 
 12. Börja kolla loggen med hjälp av:
 
@@ -29,7 +29,9 @@ Känner ni att det blir för svårt, så kolla då här för att få ledning.
     - chmod 777 db.sqllite
 
 14. None
-15.
+15. `docker container stop {id}`
+16. `prune` är ett bra kommando...
+17. `docker rmi $(docker images -f "dangling=true" -q)`. Vad ska man använda istället för *dangling=true*?
 
 ### LAB 2
 
