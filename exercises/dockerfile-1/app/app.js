@@ -11,6 +11,11 @@ module.exports.run = () => {
     res.send('hello world');
   });
 
+  app.get('/ping', (_, res) => {
+    http.get("http://localhost:3001/pong")
+    console.log("pinged")
+  })
+
   app.get('/host', (_, res) => {
     res.send(`I'm running on host ${host}`);
   });
