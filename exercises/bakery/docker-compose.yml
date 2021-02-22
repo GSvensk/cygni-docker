@@ -1,8 +1,0 @@
-version: "3"
-
-services:
-  app:
-    environment:
-      DJANGO_SECRET_KEY: test
-    ports:
-      - "8000:8000"
