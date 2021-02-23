@@ -12,7 +12,7 @@ module.exports.run = () => {
   });
 
   app.get('/ping', (_, res) => {
-    http.get("http://localhost:3001/pong")
+    http.get("http://pong-server:3001/pong")
     console.log("pinged")
   })
 

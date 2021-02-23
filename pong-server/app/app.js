@@ -11,7 +11,7 @@ module.exports.run = () => {
   app.get('/pong', (req, res) => {
     console.log("ponged")
     setTimeout(() => {
-      http.get('http://localhost:3000/ping');
+      http.get('http://cygni-docker-lab-1:3000/ping');
       res.send('ping pong has begun!');
     }, 5000);
   });
