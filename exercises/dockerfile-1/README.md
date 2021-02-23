@@ -53,32 +53,37 @@ Detta kommer att starta servern och mappa port 3000 på maskinen där den körs 
 
 Prova att interagera med servern på samma sätt som tidigare i steg 7.
 
-Stäng inte ner terminalen utan öppna en ny för följande steg!
+Stäng inte ner terminalen utan öppna en ny för nästa steg!
+
+## Tips: starta ett shell i en körande container
+Om du vill felsöka inuti en körande container så kan du skapa ett shell (givet att det finns installerat!) med hjälp av `docker exec -it <CONTAINER ID ELLER NAMN> bash`. Du kan hitta container id eller namnet genom att köra `docker ps`. När du klar kan du köra `exit`.
 
 ## Docker Hub
 På samma sätt som att det går att dela källkod via tex github eller gitlab går det att dela container images via tex dockerhub.
 För att hämta ner och köra imagen pong-server som vi byggde tidigare kan du skriva:
 ```
-docker run -p 3001:3001 --name pong_server overraskning/pong-server:v1 
+docker run -p 3001:3001 --name pong-server overraskning/pong-server:v1 
 ```
 
 Öppna en ny terminal och använda curl för att göra ett anrop till `localhost:3001`.
 
-För 
+Vi ska nu försöka göra anrop från den ena containern till den andra.
+```
+docker exec -it pong-server curl http://cygni-docker-lab-1:3000/ping
+```
+Vad får du för resultat?
+
+För att den ena containern ska kunna gå att nå från den andra behöver dom vara i samma nätverk.
+Se till att du har både `pong-server` och `cygni-docker-lab-1` igång. Sedan kan du skapa ett nätverk och ansluta båda containrarna till detta.
 ```
 docker network create ping-pong
 docker network connect ping-pong pong-server
 docker network connect ping-pong cygni-docker-lab-1
 ```
-
-docker exec -it pong-server curl http://cygni-docker-lab-1:3000/ping
-
-
-## Tips: starta ett shell i en körande container
-Om du vill felsöka inuti en körande container så kan du skapa ett shell (givet att det finns installerat!) med hjälp av `docker exec -it <CONTAINER ID ELLER NAMN> bash`. Du kan hitta container id eller namnet genom att köra `docker ps`. När du klar kan du köra `exit`.
+Vad ser du?
 
 ## Stoppa servern
-Ta reda på vilket id Docker-containern har genom att köra `docker ps`. Stoppa sedan servern genom att köra `docker stop <conatinerid>`
+Ta reda på vilket id Docker-containern har genom att köra `docker ps`. Stoppa sedan servrarna genom att köra `docker stop <conatinerid>`
 
 ### Bonusuppgift: är containern healthy?
 Lägg till en health check som kontrollerar att servern är upp och kör. Titta i [Dockerfile reference](https://docs.docker.com/engine/reference/builder/#healthcheck). Du kan se hälsotillståndet genom att köra `docker ps`. När health checken lyckas kommer status att innehålla `(healthy)`.
