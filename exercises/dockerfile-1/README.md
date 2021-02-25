@@ -80,7 +80,8 @@ docker network create ping-pong
 docker network connect ping-pong pong-server
 docker network connect ping-pong cygni-docker-lab-1
 ```
-Vad ser du?
+
+Testa att göra curl anropet igen, vad ser du?
 
 ## Stoppa servern
 Ta reda på vilket id Docker-containern har genom att köra `docker ps`. Stoppa sedan servrarna genom att köra `docker stop <conatinerid>`
